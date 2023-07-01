@@ -1,0 +1,7 @@
+spring :
+  application:
+    name: UIS Project
+  jpa:
+    show-sql: true
+  profiles:
+    active: dev
