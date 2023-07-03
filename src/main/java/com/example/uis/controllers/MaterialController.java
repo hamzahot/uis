@@ -3,6 +3,7 @@ package com.example.uis.controllers;
 
 import com.example.uis.dao.MaterialDao;
 import com.example.uis.dto.material.MaterialCommandDTO;
+import com.example.uis.dto.material.MaterialFileDTO;
 import com.example.uis.dto.material.MaterialQueryDTO;
 import com.example.uis.entities.Material;
 import com.example.uis.services.MaterialService;
@@ -32,12 +33,18 @@ public class MaterialController {
         return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/upload")
-    public ResponseEntity<Void> upload(@RequestParam("photo") MultipartFile multipartFile ,
-                                       @RequestBody MaterialCommandDTO materialCommandDTO) throws IOException
+    @PostMapping(value = "/upload/{id}")
+    public ResponseEntity<MaterialFileDTO> upload(@RequestParam("file") MultipartFile multipartFile,
+                                                  Integer id) throws IOException
     {
-        materialService.upload(multipartFile, materialCommandDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        MaterialFileDTO materialFileDTO = materialService.upload(multipartFile, id);
+        return new ResponseEntity<>(materialFileDTO, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/save")
+    public ResponseEntity<Void> saveMaterial(@RequestBody MaterialCommandDTO materialCommandDTO) {
+        materialService.save(materialCommandDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "download/{id}")

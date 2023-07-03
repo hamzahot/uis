@@ -15,7 +15,8 @@ public interface MaterialRepository extends JpaRepository<Material, Integer> {
 
     @Query(value = "select material " +
             "from Material material " +
-            "where material.course.id = :courseId")
+            "where material.course.id = :courseId " +
+            "and material.isReviewed = true")
     List<Material> findAllByCourseId(@Param("courseId") Integer courseId);
 
     @Query(value = "select material.fullPath " +

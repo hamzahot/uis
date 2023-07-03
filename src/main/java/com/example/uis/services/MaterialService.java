@@ -3,6 +3,7 @@ package com.example.uis.services;
 
 import com.example.uis.dao.MaterialDao;
 import com.example.uis.dto.material.MaterialCommandDTO;
+import com.example.uis.dto.material.MaterialFileDTO;
 import com.example.uis.dto.material.MaterialQueryDTO;
 import com.example.uis.entities.Course;
 import com.example.uis.entities.Material;
@@ -44,18 +45,22 @@ public class MaterialService {
         return materialRepository.findAllUnapproved();
     }
 
-    public void upload(MultipartFile multipartFile, MaterialCommandDTO materialCommandDTO) throws IOException {
+    public MaterialFileDTO upload(MultipartFile multipartFile, Integer id) throws IOException {
         String originalName = new Date().getTime() + "_" +  multipartFile.getOriginalFilename();
 
         String fullPath = baseFilePath + originalName;
         Path path = Paths.get(fullPath);
         Files.write(path, multipartFile.getBytes());
 
+        return new MaterialFileDTO(fullPath, originalName);
+    }
+
+    public void save(MaterialCommandDTO materialCommandDTO) {
         Material material = new Material();
         material.setName(materialCommandDTO.getName());
         material.setDescription(materialCommandDTO.getDescription());
-        material.setFullPath(fullPath);
-        material.setFilename(originalName);
+        material.setFullPath(materialCommandDTO.getFullPath());
+        material.setFilename(materialCommandDTO.getFilename());
         material.setCourse(courseService.findById(materialCommandDTO.getCourseId()));
 
         materialRepository.save(material);

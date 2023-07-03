@@ -24,7 +24,7 @@ public class Material {
     private String description;
 
     @Column(name = "is_reviewed")
-    private Boolean isReviewed;
+    private Boolean isReviewed = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "course_id")

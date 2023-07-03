@@ -58,6 +58,8 @@ public class StudentService {
     public void deactivateStudent(Integer studentId) {
         Student student = studentRepository.findById(studentId).get();
         student.setIsDeactivated(true);
+
+        studentRepository.save(student);
     }
 
     public List<StudentQueryDTO> findAllByCourseId(Integer courseId) {

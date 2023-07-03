@@ -10,4 +10,5 @@ public class MaterialCommandDTO {
     private String name;
     private String fullPath;
     private String description;
+    private String filename;
 }

@@ -41,7 +41,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .antMatchers("/api/student/**").permitAll()
                 .antMatchers("/api/authenticate/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 
