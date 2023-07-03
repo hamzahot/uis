@@ -18,4 +18,17 @@ public interface MaterialRepository extends JpaRepository<Material, Integer> {
             "from Material material " +
             "where material.course.id = :courseId")
     List<Material> findAllByCourseId(@Param("courseId") Integer courseId);
+
+
+    @Query(value = "select material.fullPath " +
+            "from Material material " +
+            "where material.id = :id")
+    String fullPathById(@Param("id") Integer id);
+
+
+
+    @Query(value = "select material.name " +
+            "from Material material " +
+            "where material.id = :id")
+    String nameById(@Param("id") Integer id);
 }

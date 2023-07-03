@@ -5,3 +5,12 @@ spring :
     show-sql: true
   profiles:
     active: dev
+
+
+
+# JWT Token Configuration
+jwt:
+  secret: 7WruXL5o642Qsx5l4NyFVJAETlYwsA10MJf4+RNiJbZtAhAs58F80oqateLXtb+mSNwLv8MUyhhihotNd3wJdZoT6KwC+fOcWV8lKGbVehDH6X36yxsHA9l9HVrcufYgv8wFmYwC/WS7oGvQO3QjiwAfCaBLQFb7xwAqP5PQnScfu9VBiqKwHYk9N0aJIgm0Qzvr2lCwVY+WdbIPBO40q3TD7HhHhKYk4tIC4l9XRsvehaztwpGMYUr5m30mUrMhjXKlmm0N25dJ7aUWNd11HSVSLariLdQFHP2MD9NimI/bwymO3EJ/dba4aWQRlDqfThO9ip9j22Yyy4fc7g/nKTOhBZNxn4ZHoORvoiawdKfasEHrzt4RwoH33DQhjFNCkNKVpoccymmJTLQ6cbZKQLaVKfA0O+iFmzo9Crz4mlu2X3LLgGCPMqCRVPqBEvLFVg+auEPM6TMxIcC/Zeop7k/mh/MY4iby84W8Vn1d9YD+AT0jC4tNg9a22ONUpuJscjNwt37G8qJ+TrmFIBKlw3sQJ6a8SdaU25foYRDBSZ/ya6pf6H/ipfffgGyALW/jUsWPvf5jOGZJU9HPnycbNO2wir3LKRntinvZ9TT3sb9V2tH1u9PldPdvlhqCawOrhODI3HZ24MpBu1CQOIPsl/netjANsW2JxkkjLhUYgrRJbXUOE1S2ACwldpuOlk24
+
+  validityInMinutes: 10
+  refreshTokenValidityInMinutes: 20

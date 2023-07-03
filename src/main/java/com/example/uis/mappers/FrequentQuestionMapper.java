@@ -2,6 +2,7 @@ package com.example.uis.mappers;
 
 
 import com.example.uis.dto.frequent_question.FrequentQuestionCommandDTO;
+import com.example.uis.dto.frequent_question.FrequentQuestionEditDTO;
 import com.example.uis.dto.frequent_question.FrequentQuestionQueryDTO;
 import com.example.uis.entities.FrequentQuestion;
 import org.mapstruct.Mapper;
@@ -17,5 +18,7 @@ public interface FrequentQuestionMapper {
     FrequentQuestion commandDtoToEntity(FrequentQuestionCommandDTO frequentQuestionCommandDTO);
 
     FrequentQuestionQueryDTO entityToQueryDto(FrequentQuestion frequentQuestion);
+
+    FrequentQuestion editDtoToEntity(FrequentQuestionEditDTO frequentQuestionEditDTO);
 
 }

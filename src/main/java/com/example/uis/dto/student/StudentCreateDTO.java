@@ -4,15 +4,15 @@ package com.example.uis.dto.student;
 import com.example.uis.dto.role.RoleDTO;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
-public class StudentQueryDTO {
+public class StudentCreateDTO {
 
-    private Integer id;
     private String fullName;
     private String indeks;
     private String username;
+    private String password;
     private Boolean isDeactivated;
-    private Set<RoleDTO> roles;
+    private List<RoleDTO> roles;
 }

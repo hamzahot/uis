@@ -20,7 +20,14 @@ public class Student {
     @Column(name = "full_name")
     private String fullName;
 
-    private String index;
+    private String indeks;
+
+    private String username;
+
+    private String password;
+
+    @Column(name = "is_deactivated")
+    private Boolean isDeactivated = false;
 
     @ManyToMany()
     @JoinTable(

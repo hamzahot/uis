@@ -2,6 +2,7 @@ package com.example.uis.controllers;
 
 
 import com.example.uis.dto.frequent_question.FrequentQuestionCommandDTO;
+import com.example.uis.dto.frequent_question.FrequentQuestionEditDTO;
 import com.example.uis.dto.frequent_question.FrequentQuestionQueryDTO;
 import com.example.uis.services.FrequentQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,13 @@ public class FrequentQuestionController {
     {
         frequentQuestionService.save(frequentQuestionCommandDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("edit")
+    public ResponseEntity<Void> updateQuestion(@RequestBody FrequentQuestionEditDTO frequentQuestionEditDTO)
+    {
+        frequentQuestionService.editQuestion(frequentQuestionEditDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

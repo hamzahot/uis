@@ -13,3 +13,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:
       show-sql: true
+
+custom-auth:
+  key: aabbcc4567
+
+fs:
+  base-Url : \Users\hamza\Desktop\Angular Projects\kocats\src\assets\slike_macaka\
+  front-Url : \Users\hamza\Desktop\Angular Projects\kocats\src\assets\images\

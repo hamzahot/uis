@@ -1,6 +1,7 @@
 package com.example.uis.services;
 
 
+import com.example.uis.dto.student.StudentCreateDTO;
 import com.example.uis.dto.student.StudentQueryDTO;
 import com.example.uis.entities.Course;
 import com.example.uis.entities.Student;
@@ -24,7 +25,7 @@ public class StudentService {
     private StudentMapper studentMapper;
 
     public List<StudentQueryDTO> getAllStudents(){
-        return studentRepository.findAll().stream().map(studentMapper :: entityToQueryDTO).toList();
+        return studentRepository.findAllByIsDeactivatedFalse().stream().map(studentMapper :: entityToQueryDTO).toList();
     }
 
     public void addStudentToCourse(Integer studentId, Integer courseId)
@@ -47,5 +48,20 @@ public class StudentService {
 
     public Student findById(Integer id){
         return studentRepository.findById(id).get();
+    }
+
+    public void insert(StudentCreateDTO studentCreateDTO) {
+        Student student = studentMapper.studentCreateDtoToEntity(studentCreateDTO);
+        studentRepository.save(student);
+    }
+
+    public void deactivateStudent(Integer studentId) {
+        Student student = studentRepository.findById(studentId).get();
+        student.setIsDeactivated(true);
+    }
+
+    public List<StudentQueryDTO> findAllByCourseId(Integer courseId) {
+        return studentRepository.findAllByCourseIdAndIsDeactivatedFalse(courseId).stream()
+            .map(studentMapper :: entityToQueryDTO).toList();
     }
 }

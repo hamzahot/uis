@@ -2,6 +2,7 @@ package com.example.uis.services;
 
 
 import com.example.uis.dto.frequent_question.FrequentQuestionCommandDTO;
+import com.example.uis.dto.frequent_question.FrequentQuestionEditDTO;
 import com.example.uis.dto.frequent_question.FrequentQuestionQueryDTO;
 import com.example.uis.entities.Course;
 import com.example.uis.entities.FrequentQuestion;
@@ -34,6 +35,15 @@ public class FrequentQuestionService {
         Course course = courseService.findById(frequentQuestionCommandDTO.getCourseId());
 
         FrequentQuestion frequentQuestion = frequentQuestionMapper.commandDtoToEntity(frequentQuestionCommandDTO);
+        frequentQuestion.setCourse(course);
+
+        frequentQuestionRepository.save(frequentQuestion);
+    }
+
+    public void editQuestion(FrequentQuestionEditDTO frequentQuestionEditDTO) {
+        Course course = courseService.findById(frequentQuestionEditDTO.getCourseId());
+
+        FrequentQuestion frequentQuestion = frequentQuestionMapper.editDtoToEntity(frequentQuestionEditDTO);
         frequentQuestion.setCourse(course);
 
         frequentQuestionRepository.save(frequentQuestion);

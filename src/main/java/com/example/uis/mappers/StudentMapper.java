@@ -1,6 +1,7 @@
 package com.example.uis.mappers;
 
 
+import com.example.uis.dto.student.StudentCreateDTO;
 import com.example.uis.dto.student.StudentQueryDTO;
 import com.example.uis.entities.Student;
 import org.mapstruct.Mapper;
@@ -14,4 +15,7 @@ import org.mapstruct.ReportingPolicy;
 public interface StudentMapper {
 
     StudentQueryDTO entityToQueryDTO(Student student);
+
+    Student studentCreateDtoToEntity(StudentCreateDTO studentCreateDTO);
+
 }
