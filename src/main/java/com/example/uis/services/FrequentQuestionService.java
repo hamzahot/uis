@@ -48,4 +48,9 @@ public class FrequentQuestionService {
 
         frequentQuestionRepository.save(frequentQuestion);
     }
+
+    public void deleteQuestion(Integer id) {
+        frequentQuestionRepository.deleteById(id);
+    }
+
 }

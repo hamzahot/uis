@@ -21,7 +21,7 @@ public class CourseController {
     @GetMapping(value = "all")
     public ResponseEntity<List<CourseQueryDTO>> findAllCourses()
     {
-        List<CourseQueryDTO> courses = courseService.findAll();
+        List<CourseQueryDTO> courses = courseService.findAllActive();
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
@@ -30,5 +30,12 @@ public class CourseController {
     {
         courseService.save(course);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable Integer id)
+    {
+        courseService.deactivateByid(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

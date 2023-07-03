@@ -34,11 +34,16 @@ public class FrequentQuestionController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-
     @PutMapping("edit")
     public ResponseEntity<Void> updateQuestion(@RequestBody FrequentQuestionEditDTO frequentQuestionEditDTO)
     {
         frequentQuestionService.editQuestion(frequentQuestionEditDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Integer id) {
+        frequentQuestionService.deleteQuestion(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

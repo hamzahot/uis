@@ -9,5 +9,5 @@ import lombok.Data;
 public class MaterialDao {
 
     private byte[] fileBytes;
-    private String name;
+    private String filename;
 }

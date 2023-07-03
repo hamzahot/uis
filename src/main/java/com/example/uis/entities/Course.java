@@ -27,4 +27,7 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     private Set<Student> students = new HashSet<>();
 
+    @Column(name = "is_active")
+    private Boolean active = Boolean.TRUE;
+
 }

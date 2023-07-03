@@ -2,6 +2,7 @@ package com.example.uis.services;
 
 
 import com.example.uis.dao.MaterialDao;
+import com.example.uis.dto.material.MaterialCommandDTO;
 import com.example.uis.dto.material.MaterialQueryDTO;
 import com.example.uis.entities.Course;
 import com.example.uis.entities.Material;
@@ -39,17 +40,11 @@ public class MaterialService {
         return materialRepository.findAllByCourseId(id).stream().map(materialMapper :: entityToQueryDto).toList();
     }
 
-//    public void save(MaterialCommandDTO materialCommandDTO)
-//    {
-//        Course course = courseService.findById(materialCommandDTO.getCourseId());
-//
-//        Material material = materialMapper.commandDtoToEntity(materialCommandDTO);
-//        material.setCourse(course);
-//
-//        materialRepository.save(material);
-//    }
+    public List<Material> findAllUnapproved() {
+        return materialRepository.findAllUnapproved();
+    }
 
-    public void upload(MultipartFile multipartFile, Integer courseId) throws IOException {
+    public void upload(MultipartFile multipartFile, MaterialCommandDTO materialCommandDTO) throws IOException {
         String originalName = new Date().getTime() + "_" +  multipartFile.getOriginalFilename();
 
         String fullPath = baseFilePath + originalName;
@@ -57,23 +52,21 @@ public class MaterialService {
         Files.write(path, multipartFile.getBytes());
 
         Material material = new Material();
-        material.setName(originalName);
+        material.setName(materialCommandDTO.getName());
+        material.setDescription(materialCommandDTO.getDescription());
         material.setFullPath(fullPath);
-
-        Course course = new Course();
-        course.setId(courseId);
-        material.setCourse(course);
+        material.setFilename(originalName);
+        material.setCourse(courseService.findById(materialCommandDTO.getCourseId()));
 
         materialRepository.save(material);
     }
 
     public MaterialDao download(Integer id) throws IOException {
         String fullPath = materialRepository.fullPathById(id);
-        String name = materialRepository.nameById(id);
-
+        String filename = materialRepository.filenameById(id);
 
         Path path = Paths.get(fullPath);
-        return new MaterialDao(Files.readAllBytes(path), name);
+        return new MaterialDao(Files.readAllBytes(path), filename);
     }
 
     public void approveReview(Integer id) {

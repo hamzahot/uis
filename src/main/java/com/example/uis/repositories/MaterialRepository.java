@@ -13,12 +13,10 @@ import java.util.List;
 @Repository
 public interface MaterialRepository extends JpaRepository<Material, Integer> {
 
-
     @Query(value = "select material " +
             "from Material material " +
             "where material.course.id = :courseId")
     List<Material> findAllByCourseId(@Param("courseId") Integer courseId);
-
 
     @Query(value = "select material.fullPath " +
             "from Material material " +
@@ -26,9 +24,14 @@ public interface MaterialRepository extends JpaRepository<Material, Integer> {
     String fullPathById(@Param("id") Integer id);
 
 
-
-    @Query(value = "select material.name " +
+    @Query(value = "select material.filename " +
             "from Material material " +
             "where material.id = :id")
-    String nameById(@Param("id") Integer id);
+    String filenameById(@Param("id") Integer id);
+
+    @Query(value = "select material " +
+            "from Material material " +
+            "join fetch material.course " +
+            "where material.isReviewed = false")
+    List<Material> findAllUnapproved();
 }

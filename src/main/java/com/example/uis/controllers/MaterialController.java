@@ -4,6 +4,7 @@ package com.example.uis.controllers;
 import com.example.uis.dao.MaterialDao;
 import com.example.uis.dto.material.MaterialCommandDTO;
 import com.example.uis.dto.material.MaterialQueryDTO;
+import com.example.uis.entities.Material;
 import com.example.uis.services.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -31,19 +32,11 @@ public class MaterialController {
         return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 
-
-//    @PostMapping
-//    public ResponseEntity<Void> addMaterial(@RequestBody MaterialCommandDTO materialCommandDTO)
-//    {
-//        materialService.save(materialCommandDTO);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
-
-    @PostMapping(value = "upload/{courseId}")
+    @PostMapping(value = "/upload")
     public ResponseEntity<Void> upload(@RequestParam("photo") MultipartFile multipartFile ,
-                                       @PathVariable("courseId") Integer courseId) throws IOException
+                                       @RequestBody MaterialCommandDTO materialCommandDTO) throws IOException
     {
-        materialService.upload(multipartFile, courseId);
+        materialService.upload(multipartFile, materialCommandDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -52,7 +45,7 @@ public class MaterialController {
         MaterialDao materialDao = materialService.download(id);
         ByteArrayResource byteArrayResource = new ByteArrayResource(materialDao.getFileBytes());
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("FILE_NAME" , materialDao.getName());
+        httpHeaders.set("FILE_NAME" , materialDao.getFilename());
 
         return new ResponseEntity<>(byteArrayResource , httpHeaders, HttpStatus.OK);
     }
@@ -69,5 +62,11 @@ public class MaterialController {
     {
         materialService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/unapproved")
+    public ResponseEntity<List<Material>> findAllUnapproved() {
+        List<Material> materials = materialService.findAllUnapproved();
+        return new ResponseEntity<>(materials, HttpStatus.OK);
     }
 }

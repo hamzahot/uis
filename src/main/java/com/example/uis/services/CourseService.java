@@ -23,11 +23,23 @@ public class CourseService {
         return courseRepository.findAll().stream().map(courseMapper :: entityToCourseQueryDTO).toList();
     }
 
+    public List<CourseQueryDTO> findAllActive() {
+        return courseRepository.findAllActive().stream().map(courseMapper :: entityToCourseQueryDTO).toList();
+    }
+
     public void save(CourseCommandDTO course) {
         courseRepository.save(courseMapper.courseCommandDtoToEntity(course));
     }
 
     public Course findById(Integer id){
         return courseRepository.findById(id).get();
+    }
+
+    public void deactivateByid(Integer id)
+    {
+        Course course = courseRepository.findById(id).get();
+        course.setActive(false);
+        courseRepository.save(course);
+
     }
 }

@@ -29,4 +29,6 @@ public class Material {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+    private String filename;
 }
